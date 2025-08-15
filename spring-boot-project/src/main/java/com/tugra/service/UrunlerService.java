@@ -8,4 +8,6 @@ public interface UrunlerService {
 
     public List<DtoUrunler> getAllUrunler();
 
+    public DtoUrunler getUrunByUrunKodu(String urunKodu);
+
 }

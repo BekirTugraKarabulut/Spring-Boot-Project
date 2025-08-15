@@ -43,6 +43,10 @@ public class Kullanici implements UserDetails {
     @OneToMany(mappedBy = "kullanici",cascade = CascadeType.ALL)
     private List<RefreshToken> refreshTokens;
 
+    @OneToMany(mappedBy = "kullanici", cascade = CascadeType.ALL)
+    private List<Sepet> sepetler;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

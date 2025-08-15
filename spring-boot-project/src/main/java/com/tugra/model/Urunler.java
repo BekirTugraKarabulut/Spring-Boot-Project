@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "urunler")
 @Schema(description = "Ürün Bilgileri")
@@ -27,5 +29,9 @@ public class Urunler {
 
     @Column(name = "urun_fiyati")
     private Integer urunFiyati;
+
+    @OneToMany(mappedBy = "urunler" , cascade = CascadeType.ALL)
+    private List<Sepet> sepetler;
+
 
 }

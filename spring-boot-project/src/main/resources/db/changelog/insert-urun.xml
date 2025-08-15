@@ -5,11 +5,11 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="4" author="Tugra">
+    <changeSet id="5" author="Tugra">
         <insert tableName="urunler">
-            <column name="urun_kodu" value="160"/>
-            <column name="urun_adi" value="A4 Kağıtları 100'lü"/>
-            <column name="urun_fiyati" value="255"/>
+            <column name="urun_kodu" value="175"/>
+            <column name="urun_adi" value="Okul Çantası"/>
+            <column name="urun_fiyati" value="375"/>
         </insert>
     </changeSet>
 

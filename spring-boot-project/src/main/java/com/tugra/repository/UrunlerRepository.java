@@ -4,8 +4,11 @@ import com.tugra.model.Urunler;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UrunlerRepository extends JpaRepository<Urunler , Long> {
 
+    Optional<Urunler> findByUrunKodu(String urunKodu);
 
 }
