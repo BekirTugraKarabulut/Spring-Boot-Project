@@ -1,26 +1,62 @@
-
 pipeline {
     agent any
+
+    environment {
+        MAVEN_CMD = "./mvnw"
+    }
+
     stages {
+
+        stage('Prepare') {
+            steps {
+                script {
+                    // Windows ortamında çalışıyorsak mvnw => mvnw.cmd olacak
+                    if (isUnix()) {
+                        sh "chmod +x mvnw || true"
+                    } else {
+                        MAVEN_CMD = "mvnw.cmd"
+                    }
+                }
+            }
+        }
+
         stage('Build & Test') {
             steps {
-                // Maven Wrapper ile test
-                sh './mvnw clean test'
+                script {
+                    if (isUnix()) {
+                        sh "${MAVEN_CMD} clean test"
+                    } else {
+                        bat "${MAVEN_CMD} clean test"
+                    }
+                }
+            }
+        }
+
+        stage('Package') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh "${MAVEN_CMD} package -DskipTests"
+                    } else {
+                        bat "${MAVEN_CMD} package -DskipTests"
+                    }
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                // Maven Wrapper ile test
-                echo 'Deploy ediliyor...'
-           }
-       }
+                echo "Deploy aşaması (isteğe göre doldurulacak)"
+            }
+        }
 
     }
+
     post {
         always {
-            // Test sonuçlarını archive et
             junit '**/target/surefire-reports/*.xml'
+
+            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
     }
 }
